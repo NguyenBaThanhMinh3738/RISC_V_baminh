@@ -2,10 +2,10 @@ module IMEM(
     input [31:0] addr,
     output [31:0] dout
 );
-    reg [31:0] rom [0:255];
-    assign dout = rom[addr[9:2]];
+    reg [31:0] memory [0:255];
+    assign dout = memory[addr[9:2]];
 
     initial begin
-        $readmemh("mem/imem.hex", rom);
+        $readmemh("mem/imem.hex", memory);
     end
 endmodule

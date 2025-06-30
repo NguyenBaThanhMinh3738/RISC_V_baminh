@@ -5,15 +5,15 @@ module DMEM(
     input we,
     output [31:0] dout
 );
-    reg [31:0] mem [0:255];
-    assign dout = mem[addr[9:2]]; // 32-bit word addressing
+    reg [31:0] memory [0:255];
+    assign dout = memory[addr[9:2]]; // 32-bit word addressing
 
     initial begin
-        $readmemh("mem/dmem_init.hex", mem);
+        $readmemh("mem/dmem_init.hex", memory);
     end
 
     always @(posedge clk) begin
         if (we)
-            mem[addr[9:2]] <= din;
+            memory[addr[9:2]] <= din;
     end
 endmodule
