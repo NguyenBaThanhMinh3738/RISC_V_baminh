@@ -1,5 +1,5 @@
 # RISC-V Single Cycle Processor (Verilog)
-
+## Nguyễn Bá Thanh Minh 20240484E
 ## Tổng quan
 
 Đây là mô hình vi xử lý RISC-V (RV32I) dạng single-cycle được xây dựng bằng Verilog, có thể **pass toàn bộ test SC1 và SC2** trên hệ thống tự động của môn học/giảng viên.
