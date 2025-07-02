@@ -1,17 +1,22 @@
-module Branch_Comp(
-    input [31:0] A, B,
-    input [2:0] funct3,
-    output reg br_out
+module Branch_Comp (
+    input  logic [31:0] A,
+    input  logic [31:0] B,
+    input  logic Branch,
+    input  logic [2:0] funct3,
+    output logic BrTaken
 );
+    logic compare_result;
     always @(*) begin
-        case(funct3)
-            3'b000: br_out = (A == B); // BEQ
-            3'b001: br_out = (A != B); // BNE
-            3'b100: br_out = ($signed(A) < $signed(B)); // BLT
-            3'b101: br_out = ($signed(A) >= $signed(B)); // BGE
-            3'b110: br_out = (A < B); // BLTU
-            3'b111: br_out = (A >= B); // BGEU
-            default: br_out = 0;
+        compare_result = 1'b0;
+        case (funct3)
+            3'b000: compare_result = (A == B);                     // beq
+            3'b001: compare_result = (A != B);                     // bne
+            3'b100: compare_result = ($signed(A) < $signed(B));    // blt
+            3'b101: compare_result = ($signed(A) >= $signed(B));   // bge
+            3'b110: compare_result = (A < B);                      // bltu
+            3'b111: compare_result = (A >= B);                     // bgeu
+            default: compare_result = 1'b0;
         endcase
+        BrTaken = Branch ? compare_result : 1'b0;
     end
 endmodule

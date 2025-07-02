@@ -1,19 +1,27 @@
-module DMEM(
-    input clk,
-    input [31:0] addr,
-    input [31:0] din,
-    input we,
-    output [31:0] dout
+module DMEM (
+    input logic clk,
+    input logic rst_n,
+    input logic MemRead,
+    input logic MemWrite,
+    input logic [31:0] addr,
+    input logic [31:0] WriteData,
+    output logic [31:0] ReadData
 );
-    reg [31:0] memory [0:255];
-    assign dout = memory[addr[9:2]]; // 32-bit word addressing
+    logic [31:0] memory [0:255];
 
-    initial begin
-        $readmemh("mem/dmem_init.hex", memory);
+    assign ReadData = (MemRead) ? memory[addr[9:2]] : 32'b0;
+
+    always_ff @(posedge clk or negedge rst_n) begin
+        if (!rst_n)
+            for (int i = 0; i < 256; i++) memory[i] <= 0;
+        else if (MemWrite)
+            memory[addr[9:2]] <= WriteData;
     end
 
-    always @(posedge clk) begin
-        if (we)
-            memory[addr[9:2]] <= din;
+    initial begin
+        if ($fopen("./mem/dmem_init2.hex", "r"))
+            $readmemh("./mem/dmem_init2.hex", memory);
+        else if ($fopen("./mem/dmem_init.hex", "r"))
+            $readmemh("./mem/dmem_init.hex", memory);
     end
 endmodule
