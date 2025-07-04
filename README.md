@@ -1,8 +1,6 @@
 # RISC-V Single Cycle Processor (Verilog)
 ## Nguyễn Bá Thanh Minh 20240484E
-## Tổng quan
 
-Đây là mô hình vi xử lý RISC-V (RV32I) dạng single-cycle được xây dựng bằng Verilog, có thể **pass toàn bộ test SC1 và SC2** trên hệ thống tự động của môn học/giảng viên.
 
 ## Cấu trúc thư mục
 
@@ -16,3 +14,7 @@
 - `control_unit.v`    : Bộ điều khiển tín hiệu
 - `RISCV_Single_Cycle.v` : Module top kết nối toàn hệ thống
 
+## lệnh chạy test sc1 sc2
+python3 /srv/calab_grade/CA_Lab-2025/scripts/calab_grade.py sc1 ALU.v   ALU_decoder.v   Branch_Comp.v   DMEM.v   IMEM.v   Imm_Gen.v   RISCV_Single_Cycle.v   RegisterFile.v   control_unit.v
+
+python3 /srv/calab_grade/CA_Lab-2025/scripts/calab_grade.py sc2 ALU.v   ALU_decoder.v   Branch_Comp.v   DMEM.v   IMEM.v   Imm_Gen.v   RISCV_Single_Cycle.v   RegisterFile.v   control_unit.v
